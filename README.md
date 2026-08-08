@@ -29,7 +29,7 @@ Se probaron las siguientes áreas:
 
 ## Resultados
 
-**10 casos de prueba** ejecutados (TC-001 a TC-010) y **5 bugs reportados** (BUG-001 a BUG-005).
+**10 casos de prueba** ejecutados (TC-001 a TC-010) y **6 bugs reportados** (BUG-001 a BUG-006).
 
 ### Hallazgos destacados
 
