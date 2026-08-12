@@ -94,7 +94,7 @@ Código de estado 200 OK.
 
 **Estado:** Pass
 
-## API-004 — Eliminar base de usuarios con DELETE
+## API-004 — Eliminar usuario con id = 2
 
 **Método:** DELETE
 **Endpoint:** `https://reqres.in/api/users/2`
@@ -104,10 +104,12 @@ N/A
 
 **Resultado esperado**
 
-Código de estado 204 No Content. Se elimina completamente la base de datos de los usuarios de la página 2, no muestra nada en pantalla. 
+Código de estado 204 No Content. Se elimina completamente el usuario con id = 2 y la consola no devuelve ninguna información. 
 
 **Resultado actual**
 
-Código de estado 204 No Content. Se elimina completamente la base de datos de los usuarios de la página 2, no muestra nada en pantalla. 
+Código de estado 204 No Content y respuesta sin contenido. Sin embargo, al consultar el mismo endpoint con GET, el usuario con id = 2 sigue existiendo y devuelve 200 OK con todos sus datos. 
 
-**Estado:** Pass
+**Estado:** Fail
+
+> **Nota:** reqres.in es una API de demostración con datos fijos. Este comportamiento es probablemente intencional para que la API siga siendo utilizable por otros usuarios, no un defecto real. Pendiente de confirmar en la documentación oficial.
