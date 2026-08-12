@@ -60,3 +60,54 @@ Código de estado 201 Created.
 ```
 
 **Estado:** Pass
+
+## API-003 — Modificar usuarios con PUT
+
+**Método:** PUT
+**Endpoint:** `https://reqres.in/api/users/2`
+
+**Datos enviados:**
+```json
+{
+  "name": "Yahya",
+  "job": "QA Engineer"
+}
+```
+
+**Resultado esperado**
+
+Código de estado 200 OK. La respuesta contiene:
+- `name` con el valor enviado
+- `job` con el valor enviado
+- Un campo `updatedAt` con la fecha de actualización
+
+**Resultado actual**
+
+Código de estado 200 OK.
+```json
+{
+  "name": "Yahya",
+  "job": "QA Engineer",
+  "updatedAt": "2026-08-12T15:06:59.953Z"
+}
+```
+
+**Estado:** Pass
+
+## API-004 — Eliminar base de usuarios con DELETE
+
+**Método:** DELETE
+**Endpoint:** `https://reqres.in/api/users/2`
+
+**Datos enviados:**
+N/A
+
+**Resultado esperado**
+
+Código de estado 204 No Content. Se elimina completamente la base de datos de los usuarios de la página 2, no muestra nada en pantalla. 
+
+**Resultado actual**
+
+Código de estado 204 No Content. Se elimina completamente la base de datos de los usuarios de la página 2, no muestra nada en pantalla. 
+
+**Estado:** Pass
