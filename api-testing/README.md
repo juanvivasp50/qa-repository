@@ -33,33 +33,46 @@ Autenticación y permisos, Rendimiento y Seguridad.
 
 ### Hallazgos destacados
 
-**API-004 — el DELETE que devuelve 204 pero no borra nada. Y sobre todo, que lo verificaste con un GET posterior en vez de fiarte del código de respuesta.**
-El hallazgo de validación — la API acepta cualquier dato en el POST (nombres numéricos, campos vacíos) sin validar.
+**API-004 — El DELETE informa éxito pero no elimina el recurso**
+
+La petición DELETE devuelve 204 No Content, código que indica eliminación correcta. Sin embargo, al consultar el mismo endpoint con GET, el usuario sigue existiendo y responde 200 OK con todos sus datos.
+
+En un sistema real esto supone un riesgo grave: si un usuario ejerce su derecho de supresión y el sistema confirma el borrado sin ejecutarlo, la empresa está incumpliendo normativa de protección de datos además de engañar al usuario.
+
+El hallazgo solo aparece si se verifica el estado real del recurso después de la operación, en lugar de confiar en el código de respuesta.
+
+**POST sin validación de datos de entrada**
+
+El endpoint de creación acepta cualquier contenido en los campos `name` y `job`: valores numéricos, símbolos o campos vacíos. Todos devuelven 201 Created.
+
+En un sistema real, la ausencia de validación degrada la calidad de los datos: registros sin nombre imposibles de contactar, usuarios indistinguibles entre sí y problemas en cualquier proceso que dependa de esos campos.
 
 ---
 
 ## Estructura del repositorio
 
-qa-portfolio/API-Testing/
-├── API Testing.postman_colletion.json/ Prueba de los 4 métodos en Postman
-├── README.md/ Documento que estructura el test.
-└── casos-de-prueba.md/ Todos los casos de prueba documentados. 
+```
+api-testing/
+├── API-Testing.postman_collection.json    Colección de Postman con las 4 peticiones
+├── casos-de-prueba.md                     Casos API-001 a API-004 documentados
+└── README.md                              Este documento
+```
 
-- **caso-de-prueba/** — Contiene el plan de pruebas (objetivo, alcance, riesgos, criterios de éxito) y cada caso documentado con ID, precondición, pasos, resultado esperado, resultado actual y estado.
-- **reportes-de-bug/** — Cada bug sigue una estructura fija: título, severidad, prioridad, precondición, pasos para reproducir, resultado esperado y resultado actual.
-- **trazabilidad/** — Matriz que conecta cada requisito con sus casos de prueba y los bugs asociados, permitiendo detectar huecos de cobertura de un vistazo.
+**API Testing.postman_collection.json** — Colección exportada de Postman con las peticiones GET, POST, PUT y DELETE listas para ejecutar.
+- **casos-de-prueba.md** — Cada caso documentado con ID, método, endpoint, datos enviados, resultado esperado, resultado actual y estado.
 
 ---
 
 ## Técnicas aplicadas
 
-- Partición de equivalencia y análisis de valores límite
-- Testing exploratorio con charters (sesiones acotadas con objetivo definido)
-- Trazabilidad de requisitos
-- Clasificación de defectos por severidad y prioridad
+- Verificación de códigos de estado HTTP según el método utilizado
+- Validación de la estructura y contenido de las respuestas JSON
+- Comprobación de consistencia interna de los datos devueltos
+- Verificación del estado real del recurso tras una operación, en lugar de confiar únicamente en el código de respuesta
+- Pruebas con datos de entrada no válidos
 
 ---
 
 ## Entorno de pruebas
 
-Navegador Chrome · saucedemo.com · Pruebas manuales ejecutadas por un tester
+Postman · reqres.in · API key de acceso gratuito
